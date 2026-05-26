@@ -81,62 +81,7 @@ The result is a production-ready risk modeling feature set grounded in both stat
 | Dataset Size | 2,059 trading days |
 | NLP Features | 12 signal-map + 2 BERT sentiment |
 
-> Full evaluation metrics, confusion matrices, ROC curves, and SHAP beeswarm plots are in [`notebooks/04_rf_sp500_prediction.ipynb`](notebooks/04_rf_sp500_prediction.ipynb).
-
----
-
-## Project Structure
-
-```
-wsj-market-signals/
-│
-├── README.md                     ← You are here
-├── LICENSE
-├── .gitignore
-├── requirements.txt              ← Pinned dependencies
-├── Makefile                      ← Convenience commands
-│
-├── data/
-│   ├── raw/                      ← Original scraped data (not tracked by git)
-│   ├── processed/                ← Feature matrices ready for modeling
-│   └── external/                 ← VIX, Oil price data from yfinance
-│
-├── notebooks/
-│   ├── 01_data_collection.ipynb  ← WSJ scraper walkthrough & EDA
-│   ├── 02_topic_modeling.ipynb   ← LDA + BERTopic + signal taxonomy
-│   ├── 03_feature_extraction.ipynb ← Signal map + FinBERT/BERT pipeline
-│   └── 04_rf_sp500_prediction.ipynb ← RF model + SHAP interpretability
-│
-├── src/
-│   ├── __init__.py
-│   ├── data/
-│   │   ├── __init__.py
-│   │   ├── scraper.py            ← WSJ archive scraper (refactored)
-│   │   └── make_dataset.py       ← Build daily corpora from raw headlines
-│   ├── features/
-│   │   ├── __init__.py
-│   │   ├── signal_map.py         ← 12-category keyword signal map
-│   │   ├── sentiment.py          ← FinBERT + BERT inference wrappers
-│   │   └── build_features.py     ← Assemble final feature matrix
-│   └── models/
-│       ├── __init__.py
-│       ├── train_model.py        ← RF training + GridSearchCV
-│       └── predict_model.py      ← Inference on new feature vectors
-│
-├── reports/
-│   └── figures/                  ← Generated charts (word clouds, SHAP plots, etc.)
-│
-├── scripts/
-│   ├── run_scraper.sh            ← Kick off headline collection
-│   └── run_pipeline.sh           ← End-to-end pipeline runner
-│
-├── tests/
-│   ├── test_signal_map.py
-│   └── test_features.py
-│
-└── docs/
-    └── methodology.md            ← Detailed methodology write-up
-```
+> Full evaluation metrics, confusion matrices, ROC curves, and SHAP beeswarm plots are in [`notebooks/03_rf_sp500_prediction.ipynb`](notebooks/03_rf_sp500_prediction.ipynb).
 
 ---
 
@@ -178,44 +123,6 @@ jupyter lab
 
 ---
 
-## Usage
-
-### Run the full pipeline end-to-end
-
-```bash
-make all
-```
-
-### Or step by step
-
-```bash
-# Step 1 — Collect headlines (requires WSJ access)
-python src/data/scraper.py
-
-# Step 2 — Topic modeling
-jupyter nbconvert --to notebook --execute notebooks/02_topic_modeling.ipynb
-
-# Step 3 — Feature extraction
-jupyter nbconvert --to notebook --execute notebooks/03_feature_extraction.ipynb
-
-# Step 4 — Train and evaluate the RF model
-jupyter nbconvert --to notebook --execute notebooks/04_rf_sp500_prediction.ipynb
-```
-
-### Using pre-built features (skip scraping)
-
-If you have `wsj_market_features.csv`, you can jump directly to modeling:
-
-```python
-import pandas as pd
-from src.models.train_model import train_rf_pipeline
-
-df = pd.read_csv("data/processed/wsj_market_features.csv", parse_dates=["date"], index_col="date")
-results = train_rf_pipeline(df)
-```
-
----
-
 ## Data
 
 | File | Description | Rows | Size |
@@ -249,19 +156,6 @@ results = train_rf_pipeline(df)
 
 ---
 
-## Methodology
-
-See [`docs/methodology.md`](docs/methodology.md) for a detailed write-up covering:
-
-- Stop-word engineering (3-layer strategy preserving financial signal words)
-- LDA coherence-based hyperparameter tuning
-- BERTopic clustering approach
-- Signal map validation against topic model outputs
-- Data leakage prevention protocol
-- G-Mean as evaluation metric for imbalanced financial classification
-- SHAP interpretation of Random Forest decisions
-
----
 
 ## Technologies
 
@@ -283,8 +177,8 @@ See [`docs/methodology.md`](docs/methodology.md) for a detailed write-up coverin
 **Jishan Ahmed**
 Senior Data Scientist · NLP & Interpretable ML
 
-- [LinkedIn](https://linkedin.com/in/your-profile)
-- [GitHub](https://github.com/your-username)
+- [LinkedIn](https://www.linkedin.com/in/jishan-ahmed-689aa63b)
+- [GitHub](https://github.com/JishanBSU2018)
 
 ---
 
