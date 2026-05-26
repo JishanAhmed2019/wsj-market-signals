@@ -13,11 +13,8 @@
 - [Project Overview](#project-overview)
 - [Pipeline Architecture](#pipeline-architecture)
 - [Results](#results)
-- [Project Structure](#project-structure)
 - [Setup & Installation](#setup--installation)
-- [Usage](#usage)
 - [Data](#data)
-- [Methodology](#methodology)
 - [Technologies](#technologies)
 - [Author](#author)
 
